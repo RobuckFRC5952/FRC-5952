@@ -7,12 +7,14 @@
 
 package org.usfirst.frc.team5952.robot;
 
-import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team5952.robot.commands.ExampleCommand;
+import org.usfirst.frc.team5952.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5952.robot.subsystems.ExampleSubsystem;
 
 /**
@@ -22,10 +24,12 @@ import org.usfirst.frc.team5952.robot.subsystems.ExampleSubsystem;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends IterativeRobot {
 	public static final ExampleSubsystem kExampleSubsystem
 			= new ExampleSubsystem();
 	public static OI m_oi;
+	
+	public static DriveTrain m_driveTrain = new DriveTrain(RobotMap.motorLeft, RobotMap.motorRight);
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -110,6 +114,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		Joystick joystick = Robot.m_oi.getJoystick();
+		m_driveTrain.drive.arcadeDrive(-joystick.getY(), joystick.getX());
 	}
 
 	/**
