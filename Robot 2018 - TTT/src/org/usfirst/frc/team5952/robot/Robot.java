@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team5952.robot.commands.ExampleCommand;
 import org.usfirst.frc.team5952.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5952.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team5952.robot.subsystems.ExtendBras;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,6 +31,8 @@ public class Robot extends IterativeRobot {
 	public static OI m_oi;
 	
 	public static DriveTrain m_driveTrain = new DriveTrain(RobotMap.motorLeft, RobotMap.motorRight);
+	
+	public static ExtendBras m_extendBras = new ExtendBras(RobotMap.extendBras);
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
