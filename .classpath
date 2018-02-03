@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Robot 2018 - TTT/src"/>
+	<classpathentry kind="lib" path="Robot 2018 - TTT/dist/FRCUserProgram.jar"/>
+	<classpathentry kind="lib" path="Robot 2018 - TTT/lib/niVisionWPI.jar"/>
+	<classpathentry kind="lib" path="Robot 2018 - TTT/lib/TalonSRXLibJava.jar"/>
+	<classpathentry kind="output" path="Robot 2018 - TTT/build"/>
+</classpath>
