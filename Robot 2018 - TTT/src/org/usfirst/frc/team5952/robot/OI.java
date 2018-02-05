@@ -8,6 +8,7 @@
 package org.usfirst.frc.team5952.robot;
 
 import org.usfirst.frc.team5952.robot.commands.ExtendBrasCommand;
+import org.usfirst.frc.team5952.robot.commands.PousserBallonCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -17,16 +18,13 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	//// CREATING BUTTONS
-	// One type of button is a joystick button which is any button on a
-	//// joystick.
-	// You create one by telling it which joystick it's on and which button
-	// number it is.
-	private Joystick stick = new Joystick(0);
-	private JoystickButton b6 = new JoystickButton(stick,6);
-	
+	Joystick stick = new Joystick(0);
+	JoystickButton b6 = new JoystickButton(stick, 6);
+	JoystickButton b1 = new JoystickButton(stick, 1);
+
 	public OI () {
 		b6.toggleWhenPressed(new ExtendBrasCommand());
+		b1.toggleWhenPressed(new PousserBallonCommand());
 	}
 
 	public Joystick getJoystick() {

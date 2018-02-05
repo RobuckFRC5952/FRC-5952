@@ -17,6 +17,7 @@ import org.usfirst.frc.team5952.robot.commands.ExampleCommand;
 import org.usfirst.frc.team5952.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5952.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team5952.robot.subsystems.ExtendBras;
+import org.usfirst.frc.team5952.robot.subsystems.PousserBallon;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -34,6 +35,7 @@ public class Robot extends IterativeRobot {
 	
 	public static ExtendBras m_extendBras = new ExtendBras(RobotMap.extendBras);
 
+	public static PousserBallon m_pousserBallon = new PousserBallon(RobotMap.pousserBallon);  
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
