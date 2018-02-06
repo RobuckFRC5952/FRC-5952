@@ -13,10 +13,12 @@ import org.usfirst.frc.team5952.robot.Robot;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class ExampleCommand extends Command {
-	public ExampleCommand() {
+public class CommandBras extends Command {
+	private int _direction;
+	public CommandBras(int direction) {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.kExampleSubsystem);
+		requires(Robot.kTestBras);
+		_direction = direction;
 	}
 
 	// Called just before this Command runs the first time
@@ -27,6 +29,17 @@ public class ExampleCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		switch (_direction) {
+		case 0:
+			Robot.kTestBras.arreter();
+			break;
+		case 1:
+			Robot.kTestBras.monter();
+			break;
+		case 2:
+			Robot.kTestBras.descendre();
+			break;
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -38,6 +51,7 @@ public class ExampleCommand extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
+		Robot.kTestBras.arreter();
 	}
 
 	// Called when another command which requires one or more of the same

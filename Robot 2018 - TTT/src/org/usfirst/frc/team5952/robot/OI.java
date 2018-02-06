@@ -9,8 +9,10 @@ package org.usfirst.frc.team5952.robot;
 
 import org.usfirst.frc.team5952.robot.commands.ExtendBrasCommand;
 import org.usfirst.frc.team5952.robot.commands.PousserBallonCommand;
+import org.usfirst.frc.team5952.robot.commands.CommandBras;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
@@ -18,13 +20,17 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	Joystick stick = new Joystick(0);
+	private Joystick stick = new Joystick(0);
+	JoystickButton button = new JoystickButton(stick, 1);
+	JoystickButton button2 = new JoystickButton(stick, 2);
+	JoystickButton button3 = new JoystickButton(stick, 3);
 	JoystickButton b6 = new JoystickButton(stick, 6);
-	JoystickButton b1 = new JoystickButton(stick, 1);
 
 	public OI () {
+		button.toggleWhenPressed(new CommandBras(0));
+		button2.toggleWhenPressed(new CommandBras(1));
+		button3.toggleWhenPressed(new CommandBras(2));
 		b6.toggleWhenPressed(new ExtendBrasCommand());
-		b1.toggleWhenPressed(new PousserBallonCommand());
 	}
 
 	public Joystick getJoystick() {
