@@ -13,9 +13,9 @@ import org.usfirst.frc.team5952.robot.Robot;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class CommandBras extends Command {
+public class MoveBrasCommand extends Command {
 	private int _direction;
-	public CommandBras(int direction) {
+	public MoveBrasCommand(int direction) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.kMoveBras);
 		_direction = direction;
