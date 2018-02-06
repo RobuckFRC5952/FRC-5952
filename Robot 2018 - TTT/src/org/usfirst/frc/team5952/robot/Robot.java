@@ -13,11 +13,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team5952.robot.commands.ExampleCommand;
+import org.usfirst.frc.team5952.robot.commands.MoveBrasCommand;
 import org.usfirst.frc.team5952.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team5952.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team5952.robot.subsystems.ExtendBras;
-
+import org.usfirst.frc.team5952.robot.subsystems.MoveBras;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -26,8 +25,8 @@ import org.usfirst.frc.team5952.robot.subsystems.ExtendBras;
  * project.
  */
 public class Robot extends IterativeRobot {
-	public static final ExampleSubsystem kExampleSubsystem
-			= new ExampleSubsystem();
+	public static final MoveBras kMoveBras
+			= new MoveBras(RobotMap.motorBras);
 	public static OI m_oi;
 	
 	public static DriveTrain m_driveTrain = new DriveTrain(RobotMap.motorLeft, RobotMap.motorRight);
@@ -44,7 +43,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
+		m_chooser.addDefault("Default Auto", new MoveBrasCommand(0));
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}

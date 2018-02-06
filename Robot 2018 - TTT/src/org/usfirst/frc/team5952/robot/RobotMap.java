@@ -16,5 +16,6 @@ package org.usfirst.frc.team5952.robot;
 public class RobotMap {
 	public static int motorRight = 0; // PWM 0
 	public static int motorLeft = 1; // PWM 1
+	public static int motorBras = 2; // PWM 2
 	public static int extendBras = 1; // Analog 1
 }

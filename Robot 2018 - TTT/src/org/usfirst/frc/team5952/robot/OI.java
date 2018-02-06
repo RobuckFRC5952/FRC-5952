@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team5952.robot;
 
+import org.usfirst.frc.team5952.robot.commands.MoveBrasCommand;
 import org.usfirst.frc.team5952.robot.commands.ExtendBrasCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -24,9 +25,15 @@ public class OI {
 	// number it is.
 	private Joystick stick = new Joystick(0);
 	private JoystickButton b6 = new JoystickButton(stick,6);
+	JoystickButton button2 = new JoystickButton(stick, 2);
+	JoystickButton button3 = new JoystickButton(stick, 3);
 	
 	public OI () {
 		b6.toggleWhenPressed(new ExtendBrasCommand());
+		button2.whileHeld(new MoveBrasCommand(2));
+		button2.whenReleased(new MoveBrasCommand(0));
+		button3.whileHeld(new MoveBrasCommand(1));
+		button3.whenReleased(new MoveBrasCommand(0));
 	}
 
 	public Joystick getJoystick() {
