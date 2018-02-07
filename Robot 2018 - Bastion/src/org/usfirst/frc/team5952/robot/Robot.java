@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team5952.robot.commands.ExampleCommand;
+import org.usfirst.frc.team5952.robot.commands.Foward10Command;
+import org.usfirst.frc.team5952.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5952.robot.subsystems.ExampleSubsystem;
 
 /**
@@ -24,7 +26,10 @@ import org.usfirst.frc.team5952.robot.subsystems.ExampleSubsystem;
  */
 public class Robot extends TimedRobot {
 	public static final ExampleSubsystem kExampleSubsystem
-			= new ExampleSubsystem();
+			= new ExampleSubsystem();	
+	public static final DriveTrain driveTrain = 
+			new DriveTrain(RobotMap.motorLeft, RobotMap.motorRight);
+	
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
@@ -37,9 +42,11 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
+		m_chooser.addDefault("Default Auto", new Foward10Command());
+		
 		SmartDashboard.putData("Auto mode", m_chooser);
+		
+		driveTrain.reset();
 	}
 
 	/**
@@ -71,15 +78,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		m_autonomousCommand = m_chooser.getSelected();
-
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
-
-		// schedule the autonomous command (example)
+		
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
@@ -102,6 +101,9 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		
+		driveTrain.drive.arcadeDrive(-m_oi.getJoystick().getY(), m_oi.getJoystick().getX());
+		driveTrain.reset();
 	}
 
 	/**
@@ -110,6 +112,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		driveTrain.drive.arcadeDrive(-m_oi.getJoystick().getY(), m_oi.getJoystick().getX());
 	}
 
 	/**
