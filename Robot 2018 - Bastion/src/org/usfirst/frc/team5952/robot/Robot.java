@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team5952.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -31,7 +33,8 @@ public class Robot extends TimedRobot {
 			new DriveTrain(RobotMap.motorLeft, RobotMap.motorRight);
 	
 	public static OI m_oi;
-
+	//public static UsbCamera m_camera = new UsbCamera("cam0", 0);
+	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -43,7 +46,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		m_oi = new OI();
 		m_chooser.addDefault("Default Auto", new Foward10Command());
-		
+		CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putData("Auto mode", m_chooser);
 		
 		driveTrain.reset();
