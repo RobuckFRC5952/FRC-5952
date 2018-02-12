@@ -20,7 +20,10 @@ public class Robot extends IterativeRobot {
 	public static final TestBras kMoveBras = new TestBras(RobotMap.motorBras);
 	public static OI m_oi;
 	public static DriveTrain m_driveTrain = new DriveTrain(RobotMap.motorLeft, RobotMap.motorRight);
+	
+	public static ExtendBras m_extendBras = new ExtendBras(RobotMap.extendBras);
 
+	public static PousserBallon m_pousserBallon = new PousserBallon(RobotMap.pousserBallon);  
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -31,8 +34,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		m_chooser.addDefault("Default Auto", new CommandBras(0));
-//		 chooser.addObject("My Auto", new MyAutoCommand());
+		m_chooser.addDefault("Default Auto", new MoveBrasCommand(0));
+		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
