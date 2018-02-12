@@ -24,14 +24,14 @@ public class OI {
 	// You create one by telling it which joystick it's on and which button
 	// number it is.
 	private Joystick stick = new Joystick(0);
-		JoystickButton button = new JoystickButton(stick, 1);
 		JoystickButton button2 = new JoystickButton(stick, 2);
 		JoystickButton button3 = new JoystickButton(stick, 3);
 	
 	public OI () {
-		button.toggleWhenPressed(new CommandBras(0));
-		button2.toggleWhenPressed(new CommandBras(1));
-		button3.toggleWhenPressed(new CommandBras(2));
+		button2.whileHeld(new CommandBras(2));
+		button2.whenReleased(new CommandBras(0));
+		button3.whileHeld(new CommandBras(1));
+		button3.whenReleased(new CommandBras(0));
 	}
 	
 	

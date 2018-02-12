@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package org.usfirst.frc.team5952.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -13,9 +6,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team5952.robot.commands.CommandBras;
-import org.usfirst.frc.team5952.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team5952.robot.subsystems.TestBras;
+import org.usfirst.frc.team5952.robot.commands.*;
+import org.usfirst.frc.team5952.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,10 +17,8 @@ import org.usfirst.frc.team5952.robot.subsystems.TestBras;
  * project.
  */
 public class Robot extends IterativeRobot {
-	public static final TestBras kTestBras
-			= new TestBras(RobotMap.motorBras);
+	public static final TestBras kMoveBras = new TestBras(RobotMap.motorBras);
 	public static OI m_oi;
-	
 	public static DriveTrain m_driveTrain = new DriveTrain(RobotMap.motorLeft, RobotMap.motorRight);
 
 	Command m_autonomousCommand;
