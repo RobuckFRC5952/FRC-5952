@@ -7,11 +7,11 @@ import org.usfirst.frc.team5952.robot.Robot;
  * An example command.  You can replace me with your own command.
  */
 public class MoveBrasCommand extends Command {
-	private int _direction;
+	private int m_direction;
 	public MoveBrasCommand(int direction) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.kMoveBras);
-		_direction = direction;
+		m_direction = direction;
 	}
 
 	// Called just before this Command runs the first time
@@ -21,15 +21,23 @@ public class MoveBrasCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		switch (_direction) {
+		switch (m_direction) {
 		case 0:
 			Robot.kMoveBras.arreter();
 			break;
 		case 1:
-			Robot.kMoveBras.monter();
+			if(!Robot.m_limitSwitchBack.isTriggered()) {
+				Robot.kMoveBras.monter();
+				Robot.m_limitSwitchFront.resetCounter();
+			}
+			
 			break;
 		case 2:
-			Robot.kMoveBras.descendre();
+			if(!Robot.m_limitSwitchFront.isTriggered()) {
+				Robot.kMoveBras.descendre();
+				Robot.m_limitSwitchBack.resetCounter();
+			}
+			
 			break;
 		}
 	}

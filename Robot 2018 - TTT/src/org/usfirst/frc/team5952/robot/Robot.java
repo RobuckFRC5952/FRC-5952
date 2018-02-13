@@ -17,13 +17,14 @@ import org.usfirst.frc.team5952.robot.subsystems.*;
  * project.
  */
 public class Robot extends IterativeRobot {
-	public static final TestBras kMoveBras = new TestBras(RobotMap.motorBras);
+	public static final TournerBras kMoveBras = new TournerBras(RobotMap.motorBras);
 	public static OI m_oi;
 	public static DriveTrain m_driveTrain = new DriveTrain(RobotMap.motorLeft, RobotMap.motorRight);
-	
 	public static ExtendBras m_extendBras = new ExtendBras(RobotMap.extendBras);
-
-	public static PousserBallon m_pousserBallon = new PousserBallon(RobotMap.pousserBallon);  
+	public static PousserBallon m_pousserBallon = new PousserBallon(RobotMap.pousserBallon);
+	public static LimitSwitch m_limitSwitchFront = new LimitSwitch(RobotMap.limitSwitchFront);
+	public static LimitSwitch m_limitSwitchBack = new LimitSwitch(RobotMap.limitSwitchBack);
+ 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
