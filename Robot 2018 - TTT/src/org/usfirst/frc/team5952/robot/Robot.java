@@ -13,11 +13,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team5952.robot.commands.MoveBrasCommand;
-import org.usfirst.frc.team5952.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team5952.robot.subsystems.ExtendBras;
-import org.usfirst.frc.team5952.robot.subsystems.PousserBallon;
-import org.usfirst.frc.team5952.robot.subsystems.MoveBras;
+import org.usfirst.frc.team5952.robot.commands.*;
+import org.usfirst.frc.team5952.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,15 +24,15 @@ import org.usfirst.frc.team5952.robot.subsystems.MoveBras;
  * project.
  */
 public class Robot extends IterativeRobot {
-	public static final MoveBras kMoveBras
-			= new MoveBras(RobotMap.motorBras);
+	public static final MoveBras kMoveBras = new MoveBras(RobotMap.motorBras);
 	public static OI m_oi;
 	
 	public static DriveTrain m_driveTrain = new DriveTrain(RobotMap.motorLeft, RobotMap.motorRight);
-	
 	public static ExtendBras m_extendBras = new ExtendBras(RobotMap.extendBras);
-
-	public static PousserBallon m_pousserBallon = new PousserBallon(RobotMap.pousserBallon);  
+	public static PousserBallon m_pousserBallon = new PousserBallon(RobotMap.pousserBallon);
+	public static LimitSwitch m_limitSwitchFront = new LimitSwitch(RobotMap.limitSwitchFront);
+	public static LimitSwitch m_limitSwitchBack = new LimitSwitch(RobotMap.limitSwitchBack);
+ 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -122,6 +119,12 @@ public class Robot extends IterativeRobot {
 		
 		Joystick joystick = Robot.m_oi.getJoystick();
 		m_driveTrain.drive.arcadeDrive(-joystick.getY(), joystick.getX());
+		
+		SmartDashboard.putBoolean("Is back limit switch triggered", m_limitSwitchBack.isTriggered());
+		SmartDashboard.putBoolean("Is back limit switch on", m_limitSwitchBack.isSwitchActive());
+		
+		SmartDashboard.putBoolean("Is front limit switch triggered", m_limitSwitchFront.isTriggered());
+		SmartDashboard.putBoolean("Is front limit switch on", m_limitSwitchFront.isSwitchActive());
 	}
 
 	/**

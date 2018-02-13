@@ -7,10 +7,7 @@
 
 package org.usfirst.frc.team5952.robot;
 
-import org.usfirst.frc.team5952.robot.commands.MoveBrasCommand;
-import org.usfirst.frc.team5952.robot.commands.ExtendBrasCommand;
-import org.usfirst.frc.team5952.robot.commands.PousserBallonCommand;
-import org.usfirst.frc.team5952.robot.commands.CommandBras;
+import org.usfirst.frc.team5952.robot.commands.*;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;

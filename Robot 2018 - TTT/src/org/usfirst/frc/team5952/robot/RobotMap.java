@@ -18,5 +18,7 @@ public class RobotMap {
 	public static int motorLeft = 1; // PWM 1
 	public static int motorBras = 2; // PWM 2
 	public static int extendBras = 1; // Analog 1
-	public static int pousserBallon = 0; // ANALOG 
+	public static int pousserBallon = 0; // ANALOG
+	public static int limitSwitchFront = 0; // DIGITAL
+	public static int limitSwitchBack = 1; // DIGITAL
 }
