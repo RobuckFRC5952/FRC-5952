@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.CameraServer;
 import org.usfirst.frc.team5952.robot.commands.*;
 import org.usfirst.frc.team5952.robot.subsystems.*;
 
@@ -46,6 +47,7 @@ public class Robot extends IterativeRobot {
 		m_chooser.addDefault("Default Auto", new MoveBrasCommand(0));
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
+		CameraServer.getInstance().startAutomaticCapture();
 	}
 
 	/**
@@ -118,7 +120,7 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		
 		Joystick joystick = Robot.m_oi.getJoystick();
-		m_driveTrain.drive.arcadeDrive(-joystick.getY(), joystick.getX());
+		m_driveTrain.drive.arcadeDrive(-3*joystick.getY()/4, 3*joystick.getX()/4);
 		
 		SmartDashboard.putBoolean("Is back limit switch triggered", m_limitSwitchBack.isTriggered());
 		SmartDashboard.putBoolean("Is back limit switch on", m_limitSwitchBack.isSwitchActive());
