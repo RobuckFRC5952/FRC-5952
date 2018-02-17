@@ -17,7 +17,7 @@ public class Foward10Command extends Command {
 	private double _distance;
 	public Foward10Command() {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.kExampleSubsystem);
+		requires(Robot.driveTrain);
 	}
 	
 	
