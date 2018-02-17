@@ -13,12 +13,12 @@ import org.usfirst.frc.team5952.robot.Robot;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class CommandBras extends Command {
-	private int _direction;
-	public CommandBras(int direction) {
+public class MoveBrasCommand extends Command {
+	private int m_direction;
+	public MoveBrasCommand(int direction) {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.kTestBras);
-		_direction = direction;
+		requires(Robot.kMoveBras);
+		m_direction = direction;
 	}
 
 	// Called just before this Command runs the first time
@@ -29,15 +29,23 @@ public class CommandBras extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		switch (_direction) {
+		switch (m_direction) {
 		case 0:
-			Robot.kTestBras.arreter();
+			Robot.kMoveBras.arreter();
 			break;
 		case 1:
-			Robot.kTestBras.monter();
+			if(!Robot.m_limitSwitchBack.isTriggered()) {
+				Robot.kMoveBras.monter();
+				Robot.m_limitSwitchFront.resetCounter();
+			}
+			
 			break;
 		case 2:
-			Robot.kTestBras.descendre();
+			if(!Robot.m_limitSwitchFront.isTriggered()) {
+				Robot.kMoveBras.descendre();
+				Robot.m_limitSwitchBack.resetCounter();
+			}
+			
 			break;
 		}
 	}
@@ -51,7 +59,7 @@ public class CommandBras extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.kTestBras.arreter();
+		Robot.kMoveBras.arreter();
 	}
 
 	// Called when another command which requires one or more of the same
