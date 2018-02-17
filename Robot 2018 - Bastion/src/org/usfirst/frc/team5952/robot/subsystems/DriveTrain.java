@@ -23,12 +23,12 @@ public class DriveTrain extends Subsystem {
 	private Spark _leftMotor, _rightMotor;
 	public Encoder _leftEncoder, _rightEncoder;
 	
-	public DriveTrain(int port1, int port2) {
-		_leftMotor = new Spark(port1);
-		_rightMotor = new Spark(port2);
+	public DriveTrain() {
+		_leftMotor = new Spark(RobotMap.driveTrainMotorLeft);
+		_rightMotor = new Spark(RobotMap.driveTrainMotorRight);
 		
-		_leftEncoder = new Encoder(RobotMap.leftEncoder1, RobotMap.leftEncoder2);
-		_rightEncoder = new Encoder(RobotMap.rightEncoder1, RobotMap.rightEncoder2);
+		_leftEncoder = new Encoder(RobotMap.driveTrainLeftEncoder1, RobotMap.driveTrainLeftEncoder2);
+		_rightEncoder = new Encoder(RobotMap.driveTrainRightEncoder1, RobotMap.driveTrainRightEncoder2);
 		
 		_leftEncoder.setDistancePerPulse(RobotMap.distancePerPulse);
 		_rightEncoder.setDistancePerPulse(RobotMap.distancePerPulse);

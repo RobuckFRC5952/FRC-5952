@@ -12,10 +12,17 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
  */
-public class ExampleSubsystem extends Subsystem {
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
-
+public class Lift extends SingleMotor {
+	private LimitSwitch _topSwitch;
+	private LimitSwitch _bottomSwitch;
+	
+	public Lift(String name, int motorPort, int encoderPort1, int encoderPort2, double distancePerPulse, int topLimitSwitchChannel, int bottomlimitSwitchChannel) {
+		super(name, motorPort, encoderPort1, encoderPort2, distancePerPulse);
+		
+		_topSwitch =  new LimitSwitch(topLimitSwitchChannel);
+		_bottomSwitch =  new LimitSwitch(bottomlimitSwitchChannel);
+	}
+	
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());

@@ -25,11 +25,28 @@ import org.usfirst.frc.team5952.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();	
-	public static final DriveTrain driveTrain = new DriveTrain(RobotMap.motorLeft, RobotMap.motorRight);
-	
+	public static final DriveTrain driveTrain = 
+			new DriveTrain();
+	public static final Lift lift =
+			new Lift("Lift", 
+					RobotMap.liftMotor, 
+					RobotMap.liftEncoder1,
+					RobotMap.liftEncoder2,
+					RobotMap.distancePerPulse,
+					RobotMap.topLiftLimitSwitchChannel,
+					RobotMap.bottomLiftLimitSwitchChannel);
+	public static final SingleMotor cableWinch =
+			new SingleMotor("CableWinch", 
+					RobotMap.cableWinchMotor, 
+					RobotMap.cableWinchEncoder1,
+					RobotMap.cableWinchEncoder2,
+					RobotMap.distancePerPulse);
+	public static final Clamp clamp =
+			new Clamp(RobotMap.clampUpDown,
+					  RobotMap.clampOpenClose);
+	public static final Light light =
+			new Light(RobotMap.light);
 	public static OI m_oi;
-	//public static UsbCamera m_camera = new UsbCamera("cam0", 0);
 	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -42,6 +59,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		m_oi = new OI();
 		m_chooser.addDefault("Default Auto", new Foward10Command());
+		
 		CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putData("Auto mode", m_chooser);
 		
