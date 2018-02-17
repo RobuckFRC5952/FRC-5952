@@ -121,12 +121,13 @@ public class Robot extends IterativeRobot {
 		
 		Joystick joystick = Robot.m_oi.getJoystick();
 		m_driveTrain.drive.arcadeDrive(-3*joystick.getY()/4, 3*joystick.getX()/4);
+		SmartDashboard.putBoolean("peut descendre", !m_limitSwitchFront.isSwitchActive());
+		SmartDashboard.putBoolean("peut monter", !m_limitSwitchBack.isSwitchActive());
 		
-		SmartDashboard.putBoolean("Is back limit switch triggered", m_limitSwitchBack.isTriggered());
-		SmartDashboard.putBoolean("Is back limit switch on", m_limitSwitchBack.isSwitchActive());
-		
-		SmartDashboard.putBoolean("Is front limit switch triggered", m_limitSwitchFront.isTriggered());
-		SmartDashboard.putBoolean("Is front limit switch on", m_limitSwitchFront.isSwitchActive());
+		if((m_limitSwitchFront.isSwitchActive() && kMoveBras.getDirection() == -1) ||
+		   (m_limitSwitchBack.isSwitchActive() && kMoveBras.getDirection() == 1)) {
+			kMoveBras.setDirection(0);
+		}
 	}
 
 	/**

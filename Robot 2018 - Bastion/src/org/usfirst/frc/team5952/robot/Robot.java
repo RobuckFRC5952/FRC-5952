@@ -14,10 +14,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team5952.robot.commands.ExampleCommand;
-import org.usfirst.frc.team5952.robot.commands.Foward10Command;
-import org.usfirst.frc.team5952.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team5952.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team5952.robot.commands.*;
+import org.usfirst.frc.team5952.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,10 +25,8 @@ import org.usfirst.frc.team5952.robot.subsystems.ExampleSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static final ExampleSubsystem kExampleSubsystem
-			= new ExampleSubsystem();	
-	public static final DriveTrain driveTrain = 
-			new DriveTrain(RobotMap.motorLeft, RobotMap.motorRight);
+	public static final ExampleSubsystem kExampleSubsystem = new ExampleSubsystem();	
+	public static final DriveTrain driveTrain = new DriveTrain(RobotMap.motorLeft, RobotMap.motorRight);
 	
 	public static OI m_oi;
 	//public static UsbCamera m_camera = new UsbCamera("cam0", 0);

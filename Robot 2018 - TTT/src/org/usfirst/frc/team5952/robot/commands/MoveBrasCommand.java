@@ -10,11 +10,9 @@ package org.usfirst.frc.team5952.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team5952.robot.Robot;
 
-/**
- * An example command.  You can replace me with your own command.
- */
 public class MoveBrasCommand extends Command {
 	private int m_direction;
+	
 	public MoveBrasCommand(int direction) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.kMoveBras);
@@ -30,23 +28,19 @@ public class MoveBrasCommand extends Command {
 	@Override
 	protected void execute() {
 		switch (m_direction) {
-		case 0:
-			Robot.kMoveBras.arreter();
-			break;
-		case 1:
-			if(!Robot.m_limitSwitchBack.isTriggered()) {
-				Robot.kMoveBras.monter();
-				Robot.m_limitSwitchFront.resetCounter();
-			}
-			
-			break;
-		case 2:
-			if(!Robot.m_limitSwitchFront.isTriggered()) {
-				Robot.kMoveBras.descendre();
-				Robot.m_limitSwitchBack.resetCounter();
-			}
-			
-			break;
+			case 0:
+				Robot.kMoveBras.setDirection(0);
+				break;
+			case 1:
+				if(!Robot.m_limitSwitchBack.isSwitchActive()) {
+					Robot.kMoveBras.setDirection(1);
+				}
+				break;
+			case 2:
+				if(!Robot.m_limitSwitchFront.isSwitchActive()) {
+					Robot.kMoveBras.setDirection(-1);
+				}
+				break;
 		}
 	}
 
@@ -59,7 +53,7 @@ public class MoveBrasCommand extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.kMoveBras.arreter();
+		Robot.kMoveBras.setDirection(0);
 	}
 
 	// Called when another command which requires one or more of the same
