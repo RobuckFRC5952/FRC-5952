@@ -8,32 +8,28 @@
 package org.usfirst.frc.team5952.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import org.usfirst.frc.team5952.robot.Robot;
 import edu.wpi.first.wpilibj.Talon;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
  */
-public class TestBras extends Subsystem {
+public class MoveBras extends Subsystem {
 	private Talon _brasMotor;
 	
-	public TestBras(int port) {
+	public MoveBras(int port) {
 		_brasMotor = new Talon(port);
 	}
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 	public void monter() {
-		_brasMotor.set(1);
+		_brasMotor.set(0.5);
 	}
 	public void arreter() {
 		_brasMotor.set(0);
 	}
 	public void descendre() {
-		_brasMotor.set(-1);
+		_brasMotor.set(-0.5);
 	}
 
-	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
-	}
+	public void initDefaultCommand() { }
 }

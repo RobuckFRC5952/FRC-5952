@@ -7,9 +7,7 @@
 
 package org.usfirst.frc.team5952.robot;
 
-import org.usfirst.frc.team5952.robot.commands.ExtendBrasCommand;
-import org.usfirst.frc.team5952.robot.commands.PousserBallonCommand;
-import org.usfirst.frc.team5952.robot.commands.CommandBras;
+import org.usfirst.frc.team5952.robot.commands.*;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -21,15 +19,15 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	private Joystick stick = new Joystick(0);
-	JoystickButton button1 = new JoystickButton(stick, 1);
 	JoystickButton button2 = new JoystickButton(stick, 2);
 	JoystickButton button3 = new JoystickButton(stick, 3);
 	JoystickButton button6 = new JoystickButton(stick, 6);
 
 	public OI () {
-		button1.toggleWhenPressed(new CommandBras(0));
-		button2.toggleWhenPressed(new CommandBras(1));
-		button3.toggleWhenPressed(new CommandBras(2));
+		button2.whileHeld(new MoveBrasCommand(2));
+		button2.whenReleased(new MoveBrasCommand(0));
+		button3.whileHeld(new MoveBrasCommand(1));
+		button3.whenReleased(new MoveBrasCommand(0));
 		button6.toggleWhenPressed(new ExtendBrasCommand());
 	}
 
