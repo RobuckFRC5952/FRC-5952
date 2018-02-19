@@ -15,18 +15,28 @@ import org.usfirst.frc.team5952.robot.Robot;
  */
 public class LiftCommand extends Command {
 	private boolean _direction;
-	private double _distance;
+	private double _currentDistance;
+	private double _targetDistance;
 	
 	public LiftCommand(boolean direction) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.lift);
 		requires(Robot.light);
 		
+		 double _currentDistance = Robot.lift.getDistance();
+		
 		_direction = direction;
 	}
 	
 	public LiftCommand(boolean direction, double distance, boolean reset) {
-		_distance = Robot.lift.getDistance();
+		this(direction);
+		
+		if(reset) {
+			Robot.lift.reset();
+		}
+		
+		_currentDistance = Robot.lift.getDistance();
+		_targetDistance = _currentDistance + distance;
 	}
 	
 	// Called just before this Command runs the first time
@@ -39,12 +49,15 @@ public class LiftCommand extends Command {
 	@Override
 	protected void execute() {
 		Robot.lift.move(_direction);
+		_currentDistance = Robot.lift.getDistance();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return _targetDistance != 0 && (
+				(_currentDistance <= _targetDistance && _direction) || 
+				(_currentDistance >= _targetDistance && !_direction));
 	}
 
 	// Called once after isFinished returns true

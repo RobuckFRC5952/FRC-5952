@@ -16,7 +16,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team5952.robot.commands.*;
 import org.usfirst.frc.team5952.robot.commands.Drive.Foward10Command;
-import org.usfirst.frc.team5952.robot.subsystems.*;
+import org.usfirst.frc.team5952.robot.subsystems.Clamp;
+import org.usfirst.frc.team5952.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team5952.robot.subsystems.Lift;
+import org.usfirst.frc.team5952.robot.subsystems.Light;
+import org.usfirst.frc.team5952.robot.subsystems.SingleMotor;
 
 /**
  * The VM is configured to automatically run this class, and to call the
