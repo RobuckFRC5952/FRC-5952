@@ -36,4 +36,9 @@ public class Clamp extends Subsystem {
 	public void enable(boolean on) {
 		_clampUpDown.set(on);
 	}
+	
+	public void log() {
+		SmartDashboard.putBoolean("ClampOpen", _clampOpenClose.get());
+		SmartDashboard.putBoolean("ClampUp", _clampUpDown.get());
+	}
 }

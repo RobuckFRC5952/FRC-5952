@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team5952.robot.commands.*;
+import org.usfirst.frc.team5952.robot.commands.Drive.Foward10Command;
 import org.usfirst.frc.team5952.robot.subsystems.*;
 
 /**
@@ -27,25 +28,25 @@ import org.usfirst.frc.team5952.robot.subsystems.*;
 public class Robot extends TimedRobot {
 	public static final DriveTrain driveTrain = 
 			new DriveTrain();
-	public static final Lift lift =
-			new Lift("Lift", 
-					RobotMap.liftMotor, 
-					RobotMap.liftEncoder1,
-					RobotMap.liftEncoder2,
-					RobotMap.distancePerPulse,
-					RobotMap.topLiftLimitSwitchChannel,
-					RobotMap.bottomLiftLimitSwitchChannel);
-	public static final SingleMotor cableWinch =
-			new SingleMotor("CableWinch", 
-					RobotMap.cableWinchMotor, 
-					RobotMap.cableWinchEncoder1,
-					RobotMap.cableWinchEncoder2,
-					RobotMap.distancePerPulse);
-	public static final Clamp clamp =
-			new Clamp(RobotMap.clampUpDown,
-					  RobotMap.clampOpenClose);
-	public static final Light light =
-			new Light(RobotMap.light);
+	public static final Lift lift = null;
+//			new Lift("Lift", 
+//					RobotMap.liftMotor, 
+//					RobotMap.liftEncoder1,
+//					RobotMap.liftEncoder2,
+//					RobotMap.distancePerPulse,
+//					RobotMap.topLiftLimitSwitchChannel,
+//					RobotMap.bottomLiftLimitSwitchChannel);
+	public static final SingleMotor cableWinch = null;
+//			new SingleMotor("CableWinch", 
+//					RobotMap.cableWinchMotor, 
+//					RobotMap.cableWinchEncoder1,
+//					RobotMap.cableWinchEncoder2,
+//					RobotMap.distancePerPulse);
+	public static final Clamp clamp = null;
+//			new Clamp(RobotMap.clampUpDown,
+//					  RobotMap.clampOpenClose);
+	public static final Light light = null;
+//			new Light(RobotMap.light);
 	public static OI m_oi;
 	
 	Command m_autonomousCommand;
@@ -58,12 +59,12 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		m_chooser.addDefault("Default Auto", new Foward10Command());
+		//m_chooser.addDefault("Default Auto", new RobotStart());
 		
 		CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putData("Auto mode", m_chooser);
 		
-		driveTrain.reset();
+//		driveTrain.reset();
 	}
 
 	/**
@@ -73,7 +74,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		//m_chooser.addDefault("Shutdown", new RobotShutdown());
 	}
 
 	@Override
@@ -120,7 +121,8 @@ public class Robot extends TimedRobot {
 		}
 		
 		driveTrain.drive.arcadeDrive(-m_oi.getJoystick().getY(), m_oi.getJoystick().getX());
-		driveTrain.reset();
+		driveTrain.log();
+//		driveTrain.reset();
 	}
 
 	/**
@@ -130,6 +132,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		driveTrain.drive.arcadeDrive(-m_oi.getJoystick().getY(), m_oi.getJoystick().getX());
+		driveTrain.log();
 	}
 
 	/**

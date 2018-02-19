@@ -13,31 +13,36 @@ import org.usfirst.frc.team5952.robot.Robot;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class Foward10Command extends Command {
-	private double _distance;
-	public Foward10Command() {
+public class LightCommand extends Command {
+	private boolean _open;
+	
+	public LightCommand(boolean open) {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.driveTrain);
+		requires(Robot.light);
+		
+		_open = open;
 	}
 	
-	
-
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		_distance = Robot.driveTrain.getDistance();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.driveTrain.drive.arcadeDrive(0, 0.2);
+		if(_open) {
+			Robot.light.open();	
+		} else {
+			Robot.light.close();
+		}
+		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return Robot.driveTrain.getDistance() - _distance > 10;
+		return true;
 	}
 
 	// Called once after isFinished returns true

@@ -38,4 +38,8 @@ public class Light extends Subsystem {
     public void close(){
     	_light.set(Relay.Value.kOff);
     }
+    
+    public void log() {
+    	SmartDashboard.putString("Light", _light.get().toString());
+    }
 }

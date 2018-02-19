@@ -28,6 +28,10 @@ public class SingleMotor extends Subsystem {
 		_encoder.setDistancePerPulse(distancePerPulse);
 	}
 	
+	protected Spark getMotor() {
+		return _motor;
+	}
+	
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
@@ -36,6 +40,7 @@ public class SingleMotor extends Subsystem {
 	public double getDistance() {
 		return _encoder.getDistance();
 	}
+	
 	
 	public void reset() {
 		_encoder.reset();

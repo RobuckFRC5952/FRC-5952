@@ -7,7 +7,8 @@
 
 package org.usfirst.frc.team5952.robot;
 
-import org.usfirst.frc.team5952.robot.commands.Foward10Command;
+import org.usfirst.frc.team5952.robot.commands.Clamp.ClampCommand;
+import org.usfirst.frc.team5952.robot.commands.Drive.Foward10Command;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -32,7 +33,7 @@ public class OI {
 	JoystickButton b12 = new JoystickButton(stick, 12);
 
 	public OI () {
-		b1.toggleWhenPressed(new Foward10Command());		
+//		b1.whileHeld(new ClampCommand(false));
 	}
 
 	public Joystick getJoystick() {
