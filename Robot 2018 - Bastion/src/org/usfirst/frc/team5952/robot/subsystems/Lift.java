@@ -7,21 +7,21 @@
 
 package org.usfirst.frc.team5952.robot.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
  */
 public class Lift extends SingleMotor {
-	private LimitSwitch _topSwitch;
-	private LimitSwitch _bottomSwitch;
+	private DigitalInput _topSwitch;
+	private DigitalInput _bottomSwitch;
 	
 	public Lift(String name, int motorPort, int encoderPort1, int encoderPort2, double distancePerPulse, int topLimitSwitchChannel, int bottomlimitSwitchChannel) {
 		super(name, motorPort, encoderPort1, encoderPort2, distancePerPulse);
 		
-		_topSwitch =  new LimitSwitch(topLimitSwitchChannel);
-		_bottomSwitch =  new LimitSwitch(bottomlimitSwitchChannel);
+		_topSwitch =  new DigitalInput(topLimitSwitchChannel);
+		_bottomSwitch =  new DigitalInput(bottomlimitSwitchChannel);
 	}
 	
 	public void initDefaultCommand() {
@@ -31,9 +31,10 @@ public class Lift extends SingleMotor {
 	
 	@Override
 	public void move(double speed) {
-		if(_topSwitch.isSwitchActive() || _bottomSwitch.isSwitchActive())
+		if(_topSwitch.get() || _bottomSwitch.get())
 		{
 			stop();
+			return;
 		}
 
 		super.move(speed);
@@ -42,7 +43,7 @@ public class Lift extends SingleMotor {
     public void log() {
     	super.log();
     	    	
-    	SmartDashboard.putBoolean("topSwitch", _topSwitch.isTriggered());
-    	SmartDashboard.putBoolean("bottomSwitch", _bottomSwitch.isTriggered());
+    	SmartDashboard.putBoolean("topSwitch", _topSwitch.get());
+    	SmartDashboard.putBoolean("bottomSwitch", _bottomSwitch.get());
     }
 }
