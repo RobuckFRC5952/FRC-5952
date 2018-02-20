@@ -32,6 +32,18 @@ public class SingleMotor extends Subsystem {
 		return _motor;
 	}
 	
+	public void move(double speed) {
+		if(speed == 0) {
+			speed = 0.3;
+		}
+
+		getMotor().set(speed);
+	}
+	
+	public void stop() {
+		getMotor().set(0);
+	}
+	
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());

@@ -20,7 +20,6 @@ public class RobotStart extends CommandGroup {
 	public RobotStart() {
 		addSequential(new ClampCommand(false));
 		addParallel(new ClampEnableCommand(false));
-		addParallel(new LiftCommand(false));
 		addParallel(new LightCommand(false));
 	}
 }

@@ -29,14 +29,14 @@ public class Lift extends SingleMotor {
 		// setDefaultCommand(new MySpecialCommand());
 	}
 	
-	public void move(boolean direction) {
-		if(direction && !_topSwitch.isSwitchActive()) {
-			getMotor().set(0.3);
+	@Override
+	public void move(double speed) {
+		if(_topSwitch.isSwitchActive() || _bottomSwitch.isSwitchActive())
+		{
+			stop();
 		}
-		
-		if(!direction && !_bottomSwitch.isSwitchActive()) {
-			getMotor().set(-0.3);
-		}
+
+		super.move(speed);
 	}
 
     public void log() {

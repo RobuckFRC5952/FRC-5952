@@ -21,6 +21,7 @@ public class RobotShutdown extends CommandGroup {
 	public RobotShutdown() {
 		addSequential(new ClampEnableCommand(true));
 		addParallel(new ClampCommand(true));
-		addParallel(new LightCommand(true));
+		addParallel(new LiftCommand(-0.3));
+		addParallel(new LightCommand(false));
 	}
 }

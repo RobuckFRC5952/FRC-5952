@@ -31,4 +31,5 @@ public class RobotMap {
 	public static int light = 2;
 	
 	public static double distancePerPulse = 0.00987;
+	public static double cableWinchSpeedAjustement = 1;
 }

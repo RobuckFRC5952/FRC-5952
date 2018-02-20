@@ -9,34 +9,34 @@ package org.usfirst.frc.team5952.robot.commands.Lift;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team5952.robot.Robot;
+import org.usfirst.frc.team5952.robot.RobotMap;
 
 /**
  * An example command.  You can replace me with your own command.
  */
 public class LiftCommand extends Command {
-	private boolean _direction;
+	private double _speed;
 	private double _currentDistance;
 	private double _targetDistance;
 	
-	public LiftCommand(boolean direction) {
+	public LiftCommand(double speed) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.lift);
 		requires(Robot.light);
+		requires(Robot.cableWinch);
 		
-		 double _currentDistance = Robot.lift.getDistance();
-		
-		_direction = direction;
+		_speed = speed;
 	}
 	
-	public LiftCommand(boolean direction, double distance, boolean reset) {
-		this(direction);
+	public LiftCommand(double speed, double distance, boolean reset) {
+		this(speed);
 		
 		if(reset) {
 			Robot.lift.reset();
 		}
 		
 		_currentDistance = Robot.lift.getDistance();
-		_targetDistance = _currentDistance + distance;
+		_targetDistance = _currentDistance + (distance * (speed > 0 ? 1 : -1));
 	}
 	
 	// Called just before this Command runs the first time
@@ -48,7 +48,8 @@ public class LiftCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.lift.move(_direction);
+		Robot.lift.move(_speed);
+		Robot.cableWinch.move(_speed * RobotMap.cableWinchSpeedAjustement);
 		_currentDistance = Robot.lift.getDistance();
 	}
 
@@ -56,14 +57,14 @@ public class LiftCommand extends Command {
 	@Override
 	protected boolean isFinished() {
 		return _targetDistance != 0 && (
-				(_currentDistance <= _targetDistance && _direction) || 
-				(_currentDistance >= _targetDistance && !_direction));
+				(_currentDistance <= _targetDistance && _speed > 0) ||
+				(_currentDistance >= _targetDistance && _speed < 0));
 	}
 
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.light.close();
+		Robot.light.open();
 	}
 
 	// Called when another command which requires one or more of the same
