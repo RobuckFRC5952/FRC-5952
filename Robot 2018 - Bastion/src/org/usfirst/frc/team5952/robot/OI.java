@@ -37,9 +37,9 @@ public class OI {
 	public OI () {
 		b1.whileHeld(new ClampCommand(false));
 		b1.whenReleased(new ClampCommand(false));
-		b3.whileHeld(new LiftCommand(true));
-		b3.whenReleased(command);
-		b2.whileHeld(new LiftCommand(false));
+		b3.whileHeld(new LiftCommand(0.3));
+		b3.whenReleased(new LiftCommand(0));
+		b2.whileHeld(new LiftCommand(-0.3));
 	}
 
 	public Joystick getJoystick() {

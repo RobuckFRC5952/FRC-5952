@@ -33,10 +33,6 @@ public class SingleMotor extends Subsystem {
 	}
 	
 	public void move(double speed) {
-		if(speed == 0) {
-			speed = 0.3;
-		}
-
 		getMotor().set(speed);
 	}
 	

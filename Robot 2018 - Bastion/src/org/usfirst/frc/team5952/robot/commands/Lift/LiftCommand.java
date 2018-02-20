@@ -22,7 +22,6 @@ public class LiftCommand extends Command {
 	public LiftCommand(double speed) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.lift);
-		requires(Robot.light);
 		requires(Robot.cableWinch);
 		
 		_speed = speed;
@@ -71,6 +70,6 @@ public class LiftCommand extends Command {
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Robot.light.close();
+		Robot.light.open();
 	}
 }
