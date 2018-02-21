@@ -7,6 +7,9 @@
 
 package org.usfirst.frc.team5952.robot.subsystems;
 
+import org.usfirst.frc.team5952.robot.Robot;
+import org.usfirst.frc.team5952.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -32,6 +35,10 @@ public class Clamp extends Subsystem {
 	}
 	
 	public void enable(boolean on) {
+		if(Robot.lift.getDistance() >= RobotMap.clampHeightEnableHigh || 
+				Robot.lift.getDistance() <= RobotMap.clampHeightEnableLow ) {
+			
+		}
 		_clampUpDown.set(on);
 	}
 	

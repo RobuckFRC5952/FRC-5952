@@ -35,7 +35,7 @@ public class LiftCommand extends Command {
 		}
 		
 		_currentDistance = Robot.lift.getDistance();
-		_targetDistance = _currentDistance + (distance * (speed > 0 ? 1 : -1));
+		_targetDistance = _currentDistance + (distance * Math.signum(speed));
 	}
 	
 	// Called just before this Command runs the first time
@@ -49,15 +49,14 @@ public class LiftCommand extends Command {
 	protected void execute() {
 		Robot.lift.move(_speed);
 		Robot.cableWinch.move(_speed * RobotMap.cableWinchSpeedAjustement);
-		_currentDistance = Robot.lift.getDistance();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
-	protected boolean isFinished() {
+	protected boolean isFinished() {		
 		return _targetDistance != 0 && (
-				(_currentDistance <= _targetDistance && _speed > 0) ||
-				(_currentDistance >= _targetDistance && _speed < 0));
+				(Robot.lift.getDistance() <= _targetDistance && _speed > 0) ||
+				(Robot.lift.getDistance() >= _targetDistance && _speed < 0));
 	}
 
 	// Called once after isFinished returns true

@@ -32,4 +32,6 @@ public class RobotMap {
 	
 	public static double distancePerPulse = 0.00987;
 	public static double cableWinchSpeedAjustement = 1;
+	public static double clampHeightEnableHigh = 50;
+	public static double clampHeightEnableLow = 10;
 }
