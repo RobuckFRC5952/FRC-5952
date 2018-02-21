@@ -16,26 +16,11 @@ import org.usfirst.frc.team5952.robot.RobotMap;
  */
 public class CableWinchCommand extends Command {
 	private double _speed;
-	private double _currentDistance;
-	private double _targetDistance;
-	
 	public CableWinchCommand(double speed) {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.lift);
 		requires(Robot.cableWinch);
 		
 		_speed = speed;
-	}
-	
-	public CableWinchCommand(double speed, double distance, boolean reset) {
-		this(speed);
-		
-		if(reset) {
-			Robot.lift.reset();
-		}
-		
-		_currentDistance = Robot.lift.getDistance();
-		_targetDistance = _currentDistance + (distance * (speed > 0 ? 1 : -1));
 	}
 	
 	// Called just before this Command runs the first time
@@ -47,17 +32,13 @@ public class CableWinchCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.lift.move(_speed);
-		Robot.cableWinch.move(_speed * RobotMap.cableWinchSpeedAjustement);
-		_currentDistance = Robot.lift.getDistance();
+		Robot.cableWinch.move(_speed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return _targetDistance != 0 && (
-				(_currentDistance <= _targetDistance && _speed > 0) ||
-				(_currentDistance >= _targetDistance && _speed < 0));
+		return false;
 	}
 
 	// Called once after isFinished returns true

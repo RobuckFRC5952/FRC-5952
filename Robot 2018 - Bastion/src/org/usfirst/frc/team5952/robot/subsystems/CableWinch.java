@@ -9,35 +9,34 @@ package org.usfirst.frc.team5952.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
  */
-public class SingleMotor extends Subsystem {
-	private String _name;
+public class CableWinch extends Subsystem {
 	private Spark _motor;
 	public Encoder _encoder;
 
-	public SingleMotor(String name, int motorPort, int encoderPort1, int encoderPort2, double distancePerPulse) {
-		_name = name;
+	public CableWinch(int motorPort, int encoderPort1, int encoderPort2, double distancePerPulse) {
 		_motor = new Spark(motorPort);
 		_encoder = new Encoder(encoderPort1, encoderPort2);
 		
 		_encoder.setDistancePerPulse(distancePerPulse);
 	}
 	
-	protected Spark getMotor() {
-		return _motor;
+	public double getSpeed() {
+		return _motor.get();
 	}
 	
 	public void move(double speed) {
-		getMotor().set(speed);
+		_motor.set(speed);
 	}
-	
+		
 	public void stop() {
-		getMotor().set(0);
+		_motor.set(0);
 	}
 	
 	public void initDefaultCommand() {
@@ -49,13 +48,12 @@ public class SingleMotor extends Subsystem {
 		return _encoder.getDistance();
 	}
 	
-	
 	public void reset() {
 		_encoder.reset();
 	}
 	
 	public void log() {
-		SmartDashboard.putNumber(_name + "Distance", getDistance());
-		SmartDashboard.putNumber(_name + "Speed", _encoder.getRate());
+		SmartDashboard.putNumber("Cable Distance", getDistance());
+		SmartDashboard.putNumber("Cable Speed", _encoder.getRate());
 	}
 }

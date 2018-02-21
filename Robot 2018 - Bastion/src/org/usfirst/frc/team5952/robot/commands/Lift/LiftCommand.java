@@ -18,6 +18,8 @@ public class LiftCommand extends Command {
 	private double _speed;
 	private double _currentDistance;
 	private double _targetDistance;
+	private double _currentSpeed;
+	private double _split;
 	
 	public LiftCommand(double speed) {
 		// Use requires() here to declare subsystem dependencies
@@ -47,16 +49,21 @@ public class LiftCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		double speed = _currentSpeed + _split;
+		
 		Robot.lift.move(_speed);
-		Robot.cableWinch.move(_speed * RobotMap.cableWinchSpeedAjustement);
+		//Robot.cableWinch.move(speed * RobotMap.cableWinchSpeedAjustement);
+		_currentSpeed += _split;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {		
-		return _targetDistance != 0 && (
-				(Robot.lift.getDistance() <= _targetDistance && _speed > 0) ||
-				(Robot.lift.getDistance() >= _targetDistance && _speed < 0));
+		return false;
+		
+		//_targetDistance != 0 && (
+		//		(Robot.lift.getDistance() <= _targetDistance && _speed > 0) ||
+		//		(Robot.lift.getDistance() >= _targetDistance && _speed < 0));
 	}
 
 	// Called once after isFinished returns true

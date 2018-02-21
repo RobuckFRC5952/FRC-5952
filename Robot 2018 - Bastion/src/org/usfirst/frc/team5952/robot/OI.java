@@ -7,20 +7,26 @@
 
 package org.usfirst.frc.team5952.robot;
 
+import org.usfirst.frc.team5952.robot.commands.RobotShutdown;
+import org.usfirst.frc.team5952.robot.commands.RobotStart;
 import org.usfirst.frc.team5952.robot.commands.Clamp.ClampCommand;
 import org.usfirst.frc.team5952.robot.commands.Clamp.ClampEnableCommand;
 import org.usfirst.frc.team5952.robot.commands.Drive.Foward10Command;
+import org.usfirst.frc.team5952.robot.commands.Lift.CableWinchCommand;
 import org.usfirst.frc.team5952.robot.commands.Lift.LiftCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+	
 	private Joystick stick = new Joystick(0);
+	
 	JoystickButton b1 = new JoystickButton(stick, 1);
 	JoystickButton b2 = new JoystickButton(stick, 2);
 	JoystickButton b3 = new JoystickButton(stick, 3);
@@ -35,11 +41,28 @@ public class OI {
 	JoystickButton b12 = new JoystickButton(stick, 12);
 
 	public OI () {
-		b1.whileHeld(new ClampCommand(false));
-		b1.whenReleased(new ClampCommand(false));
-		b3.whileHeld(new LiftCommand(0.3));
-		b3.whenReleased(new LiftCommand(0));
-		b2.whileHeld(new LiftCommand(-0.3));
+		//b1.whileHeld(new ClampCommand(true));
+		//b1.whenReleased(new ClampCommand(false));
+		//b3.whileHeld(new LiftCommand(0.1));
+		//b3.whenReleased(new LiftCommand(0));
+		//b2.whileHeld(new LiftCommand(-0.1));
+		//b2.whenReleased(new LiftCommand(0));
+		
+		//SmartDashboard.putData(new RobotStart());
+		//SmartDashboard.putData(new RobotShutdown());
+		
+		SmartDashboard.putData("Open", new ClampCommand(false));
+		SmartDashboard.putData("Close", new ClampCommand(true));
+		SmartDashboard.putData("UP", new ClampEnableCommand(true));
+		SmartDashboard.putData("Down", new ClampEnableCommand(false));
+		
+		SmartDashboard.putData("Lift up", new LiftCommand(0.3));
+		SmartDashboard.putData("Lift up", new LiftCommand(-0.3));
+		SmartDashboard.putData("Lift stop", new LiftCommand(0));
+		
+		SmartDashboard.putData("Cable up", new CableWinchCommand(0.3));
+		SmartDashboard.putData("Cable down", new CableWinchCommand(-0.3));
+		SmartDashboard.putData("Cable stop", new CableWinchCommand(0));
 	}
 
 	public Joystick getJoystick() {

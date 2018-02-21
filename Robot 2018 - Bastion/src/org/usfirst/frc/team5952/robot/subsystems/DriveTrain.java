@@ -26,13 +26,13 @@ public class DriveTrain extends Subsystem {
 	public DriveTrain() {
 		_leftMotor = new Spark(RobotMap.driveTrainMotorLeft);
 		_rightMotor = new Spark(RobotMap.driveTrainMotorRight);
-//		
-//		_leftEncoder = new Encoder(RobotMap.driveTrainLeftEncoder1, RobotMap.driveTrainLeftEncoder2);
-//		_rightEncoder = new Encoder(RobotMap.driveTrainRightEncoder1, RobotMap.driveTrainRightEncoder2);
-//		
-//		_leftEncoder.setDistancePerPulse(RobotMap.distancePerPulse);
-//		_rightEncoder.setDistancePerPulse(RobotMap.distancePerPulse);
-//		
+		
+		_leftEncoder = new Encoder(RobotMap.driveTrainLeftEncoder1, RobotMap.driveTrainLeftEncoder2);
+		_rightEncoder = new Encoder(RobotMap.driveTrainRightEncoder1, RobotMap.driveTrainRightEncoder2);
+		
+		_leftEncoder.setDistancePerPulse(RobotMap.distancePerPulse);
+		_rightEncoder.setDistancePerPulse(RobotMap.distancePerPulse);
+		
 		drive = new DifferentialDrive(_leftMotor, _rightMotor);
 	}
 	
@@ -52,8 +52,8 @@ public class DriveTrain extends Subsystem {
 	public void log() {
 		SmartDashboard.putNumber("LeftMotorSpeed", _leftMotor.get());
 		SmartDashboard.putNumber("RightMotorSpeed", _rightMotor.get());
-		//SmartDashboard.putNumber("RunDistance", getDistance());
-		//SmartDashboard.putNumber("LeftSpeed", _leftEncoder.getRate());
-		//SmartDashboard.putNumber("RightSpeed", _rightEncoder.getRate());
+		SmartDashboard.putNumber("RunDistance", getDistance());
+		SmartDashboard.putNumber("LeftSpeed", _leftEncoder.getRate());
+		SmartDashboard.putNumber("RightSpeed", _rightEncoder.getRate());
 	}
 }
