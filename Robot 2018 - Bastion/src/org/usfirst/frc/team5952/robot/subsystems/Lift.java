@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * An example subsystem.  You can replace me with your own Subsystem.
  */
 public class Lift extends Subsystem {
-	private DigitalInput _topSwitch;
+	//private DigitalInput _topSwitch;
 	private DigitalInput _bottomSwitch;
 	private Talon _motor;
 	public Encoder _encoder;
@@ -35,7 +35,7 @@ public class Lift extends Subsystem {
 		
 		_encoder.setDistancePerPulse(distancePerPulse);
 		
-		_topSwitch =  new DigitalInput(topLimitSwitchChannel);
+		//_topSwitch =  new DigitalInput(topLimitSwitchChannel);
 		_bottomSwitch =  new DigitalInput(bottomlimitSwitchChannel);
 	}
 	
@@ -45,10 +45,15 @@ public class Lift extends Subsystem {
 	}
 	
 	public void move(double speed) {
-		if(_topSwitch.get() || _bottomSwitch.get())
+		if(/*_topSwitch.get() || */_bottomSwitch.get())
 		{
-			stop();
-			return;
+			//stop();
+			//return;
+		}
+		
+		if(getDistance() >= 5) {
+			//stop();
+			//return;
 		}
 
 		_motor.set(speed);
@@ -69,7 +74,7 @@ public class Lift extends Subsystem {
     public void log() {
 		SmartDashboard.putNumber("Lift Distance", getDistance());
 		SmartDashboard.putNumber("Lift Speed", _encoder.getRate());
-    	SmartDashboard.putBoolean("Lift Max", _topSwitch.get());
+    	//SmartDashboard.putBoolean("Lift Max", _topSwitch.get());
     	SmartDashboard.putBoolean("Lift Min", _bottomSwitch.get());
     }
 }

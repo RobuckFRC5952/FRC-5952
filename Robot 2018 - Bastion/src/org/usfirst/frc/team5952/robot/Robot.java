@@ -8,6 +8,7 @@
 package org.usfirst.frc.team5952.robot;
 
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -15,6 +16,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team5952.robot.commands.*;
+import org.usfirst.frc.team5952.robot.commands.Drive.MoveCommand;
 import org.usfirst.frc.team5952.robot.subsystems.*;
 
 /**
@@ -27,6 +29,7 @@ import org.usfirst.frc.team5952.robot.subsystems.*;
 public class Robot extends TimedRobot {
 	public static final DriveTrain driveTrain = 
 			new DriveTrain();
+	
 	public static final Lift lift =
 			new Lift(RobotMap.liftMotor, 
 					RobotMap.liftEncoder1,
@@ -34,16 +37,23 @@ public class Robot extends TimedRobot {
 					RobotMap.distancePerPulse,
 					RobotMap.topLiftLimitSwitchChannel,
 					RobotMap.bottomLiftLimitSwitchChannel);
+	
 	public static final CableWinch cableWinch = 
 			new CableWinch(RobotMap.cableWinchMotor, 
 					RobotMap.cableWinchEncoder1,
 					RobotMap.cableWinchEncoder2,
 					RobotMap.distancePerPulse);
+	
 	public static final Clamp clamp = 
 			new Clamp(RobotMap.clampUpDown,
 					  RobotMap.clampOpenClose);
+	
 	public static final Light light = 
 			new Light(RobotMap.light);
+	
+	public static final AnalogGyro gyro = new AnalogGyro(
+			RobotMap.gyro);
+	
 	public static OI m_oi;
 	
 	Command m_autonomousCommand;
@@ -56,12 +66,16 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		m_oi = new OI();
-		//m_chooser.addDefault("Default Auto", new RobotStart());
+				
+		m_chooser.addObject("AutonomneSide", new MoveCommand(305));
+		m_chooser.addObject("AutonomneMiddle", new MoveCommand(305));
 		
 		CameraServer.getInstance().startAutomaticCapture();
 		SmartDashboard.putData("Auto mode", m_chooser);
 		
+		light.open();
 		driveTrain.reset();
+		lift.reset();
 	}
 
 	/**
@@ -77,6 +91,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		driveTrain.log();
+		lift.log();
 	}
 
 	/**
@@ -105,6 +121,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		driveTrain.log();
+		lift.log();
 	}
 
 	@Override
@@ -117,9 +135,9 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.cancel();
 		}
 		
-		driveTrain.drive.arcadeDrive(-m_oi.getJoystick().getY(), m_oi.getJoystick().getX());
-		driveTrain.log();
 		driveTrain.reset();
+		driveTrain.move(-m_oi.getJoystick().getY(), m_oi.getJoystick().getX());
+		driveTrain.log();
 	}
 
 	/**
@@ -128,8 +146,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		driveTrain.drive.arcadeDrive(-m_oi.getJoystick().getY(), m_oi.getJoystick().getX());
+		driveTrain.move(-m_oi.getJoystick().getY(), m_oi.getJoystick().getX());
 		driveTrain.log();
+		lift.log();
 	}
 
 	/**

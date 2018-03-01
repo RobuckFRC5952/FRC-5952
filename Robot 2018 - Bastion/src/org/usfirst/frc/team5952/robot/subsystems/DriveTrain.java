@@ -19,9 +19,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * An example subsystem.  You can replace me with your own Subsystem.
  */
 public class DriveTrain extends Subsystem {
-	public DifferentialDrive drive;
+	private DifferentialDrive drive;
 	private Spark _leftMotor, _rightMotor;
-	public Encoder _leftEncoder, _rightEncoder;
+	private Encoder _leftEncoder, _rightEncoder;
 	
 	public DriveTrain() {
 		_leftMotor = new Spark(RobotMap.driveTrainMotorLeft);
@@ -38,6 +38,14 @@ public class DriveTrain extends Subsystem {
 	
 	public void initDefaultCommand() {
 		
+	}
+	
+	public void move(double speed, double angle) {
+		drive.arcadeDrive(speed, angle);
+	}
+	
+	public void stop() {
+		drive.arcadeDrive(0, 0);
 	}
 	
 	public double getDistance() {

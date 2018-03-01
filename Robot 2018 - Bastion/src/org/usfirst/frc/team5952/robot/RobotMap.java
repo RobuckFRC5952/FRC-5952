@@ -8,13 +8,13 @@
 package org.usfirst.frc.team5952.robot;
 
 public class RobotMap {
-	public static int liftMotor = 0; // PWM
+	public static int liftMotor = 1; // PWM
 	public static int liftEncoder1 = 6; // DIO
 	public static int liftEncoder2 = 7;// DIO 
 	public static int topLiftLimitSwitchChannel = 8; // DIO
 	public static int bottomLiftLimitSwitchChannel = 9; // DIO
 	
-	public static int cableWinchMotor = 1; // PWM
+	public static int cableWinchMotor = 0; // PWM
 	public static int cableWinchEncoder1 = 4; // DIO
 	public static int cableWinchEncoder2 = 5; // DIO
 	
@@ -34,4 +34,6 @@ public class RobotMap {
 	public static double cableWinchSpeedAjustement = 1;
 	public static double clampHeightEnableHigh = 50;
 	public static double clampHeightEnableLow = 10;
+	
+	public static int gyro = 0;
 }

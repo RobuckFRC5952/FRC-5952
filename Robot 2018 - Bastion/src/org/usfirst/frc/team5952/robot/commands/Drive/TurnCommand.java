@@ -13,31 +13,33 @@ import org.usfirst.frc.team5952.robot.Robot;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class Foward10Command extends Command {
-	private double _distance;
-	public Foward10Command() {
+public class TurnCommand extends Command {
+	private double _endAngle;
+	private double _startAngle;
+	
+	public TurnCommand(double angle) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.driveTrain);
+		
+		_endAngle = angle;
+		_startAngle = Robot.gyro.getAngle();
 	}
 	
-	
-
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		_distance = Robot.driveTrain.getDistance();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.driveTrain.drive.arcadeDrive(0, 0.2);
+		Robot.driveTrain.move(0.2, Math.signum(_endAngle));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return Robot.driveTrain.getDistance() - _distance > 10;
+		return Math.abs(Robot.gyro.getAngle() - _startAngle) >= _endAngle; 
 	}
 
 	// Called once after isFinished returns true
