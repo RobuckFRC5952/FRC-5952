@@ -51,7 +51,7 @@ public class OI {
 		b7.toggleWhenPressed(new ClampEnableCommand(false));
 		
 		b4.whileHeld(new LiftCommand(0.2));
-		
+		b5.whileHeld(new LiftCommand(-1));
 		//SmartDashboard.putData(new RobotStart());
 		//SmartDashboard.putData(new RobotShutdown());
 		
