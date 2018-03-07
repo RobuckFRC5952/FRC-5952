@@ -11,6 +11,7 @@ import org.usfirst.frc.team5952.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,15 +21,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class DriveTrain extends Subsystem {
 	private DifferentialDrive drive;
-	private Spark _leftMotor, _rightMotor;
+	private Talon _leftMotor, _rightMotor;
 	private Encoder _leftEncoder, _rightEncoder;
 	
 	public DriveTrain() {
-		_leftMotor = new Spark(RobotMap.driveTrainMotorLeft);
-		_rightMotor = new Spark(RobotMap.driveTrainMotorRight);
+		_leftMotor = new Talon(RobotMap.driveTrainMotorLeft);
+		_rightMotor = new Talon(RobotMap.driveTrainMotorRight);
 		
 		_leftEncoder = new Encoder(RobotMap.driveTrainLeftEncoder1, RobotMap.driveTrainLeftEncoder2);
-		_rightEncoder = new Encoder(RobotMap.driveTrainRightEncoder1, RobotMap.driveTrainRightEncoder2);
+		_rightEncoder = new Encoder(RobotMap.driveTrainRightEncoder1, RobotMap.driveTrainRightEncoder2, true);
 		
 		_leftEncoder.setDistancePerPulse(RobotMap.distancePerPulse);
 		_rightEncoder.setDistancePerPulse(RobotMap.distancePerPulse);
@@ -49,7 +50,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public double getDistance() {
-		return (_leftEncoder.getDistance() + _rightEncoder.getDistance())/2;
+		return _rightEncoder.getDistance();
 	}
 	
 	public void reset() {
@@ -61,7 +62,7 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("LeftMotorSpeed", _leftMotor.get());
 		SmartDashboard.putNumber("RightMotorSpeed", _rightMotor.get());
 		SmartDashboard.putNumber("RunDistance", getDistance());
-		SmartDashboard.putNumber("LeftSpeed", _leftEncoder.getRate());
-		SmartDashboard.putNumber("RightSpeed", _rightEncoder.getRate());
+		SmartDashboard.putNumber("LeftSpeed enc", _leftEncoder.getRate());
+		SmartDashboard.putNumber("RightSpeed enc", _rightEncoder.getRate());
 	}
 }

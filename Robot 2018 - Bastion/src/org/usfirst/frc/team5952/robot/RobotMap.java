@@ -18,19 +18,19 @@ public class RobotMap {
 	public static int cableWinchEncoder1 = 4; // DIO
 	public static int cableWinchEncoder2 = 5; // DIO
 	
-	public static int driveTrainMotorRight = 3; // PWM
-	public static int driveTrainMotorLeft = 2; // PWM
-	public static int driveTrainLeftEncoder1 = 2; // DIO
-	public static int driveTrainLeftEncoder2 = 3; // DIO
-	public static int driveTrainRightEncoder1 = 0; // DIO
-	public static int driveTrainRightEncoder2 = 1; // DIO
+	public static int driveTrainMotorRight = 0; // PWM
+	public static int driveTrainMotorLeft = 1; // PWM
+	public static int driveTrainLeftEncoder1 = 0; // DIO
+	public static int driveTrainLeftEncoder2 = 1; // DIO
+	public static int driveTrainRightEncoder1 = 2; // DIO
+	public static int driveTrainRightEncoder2 = 3; // DIO
 	
 	public static int clampUpDown = 1;
 	public static int clampOpenClose = 2;
 	
 	public static int light = 2;
 	
-	public static double distancePerPulse = 0.00987;
+	public static double distancePerPulse = 0.0099;
 	public static double cableWinchSpeedAjustement = 1;
 	public static double clampHeightEnableHigh = 50;
 	public static double clampHeightEnableLow = 10;
