@@ -14,42 +14,44 @@ import org.usfirst.frc.team5952.robot.Robot;
  * An example command.  You can replace me with your own command.
  */
 public class TurnCommand extends Command {
-	private double _endAngle;
-	private double _startAngle;
-	
+	private double _targetAngle;
+	private double _direction;
 	public TurnCommand(double angle) {
 		// Use requires() here to declare subsystem dependencies
-		requires(Robot.driveTrain);
-		
-		_endAngle = angle;
-		_startAngle = Robot.gyro.getAngle();
+		requires(Robot.driveTrain);	
 	}
 	
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		_direction = Math.signum(angle);
+		_targetAngle = Robot.gyro.getAngle() + angle;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.driveTrain.move(0.2, Math.signum(_endAngle));
+		Robot.driveTrain.moveAuto(0.1, _direction);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return Math.abs(Robot.gyro.getAngle() - _startAngle) >= _endAngle; 
+		return _direction > 0 ? 
+				Robot.gyro.getAngle() >= _targetAngle : 
+				Robot.gyro.getAngle() <= _targetAngle; 
 	}
 
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
+		Robot.driveTrain.stop();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
+		Robot.driveTrain.stop();
 	}
 }

@@ -7,11 +7,13 @@
 
 package org.usfirst.frc.team5952.robot.subsystems;
 
+import org.usfirst.frc.team5952.robot.Robot;
 import org.usfirst.frc.team5952.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -34,7 +36,9 @@ public class DriveTrain extends Subsystem {
 		_leftEncoder.setDistancePerPulse(RobotMap.distancePerPulse);
 		_rightEncoder.setDistancePerPulse(RobotMap.distancePerPulse);
 		
-		drive = new DifferentialDrive(_leftMotor, _rightMotor);
+		if(!Robot.isAutonomous) {
+			drive = new DifferentialDrive(_leftMotor, _rightMotor);
+		}
 	}
 	
 	public void initDefaultCommand() {
@@ -43,6 +47,13 @@ public class DriveTrain extends Subsystem {
 	
 	public void move(double speed, double angle) {
 		drive.arcadeDrive(speed, angle);
+	}
+	
+	public void moveAuto(double speed, double angle) {
+		double direction = Math.signum(angle);
+		
+		_leftMotor.set(speed * direction);
+		_rightMotor.set(speed * direction);
 	}
 	
 	public void stop() {
@@ -59,6 +70,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void log() {
+		SmartDashboard.putNumber("gyro", Robot.gyro.getAngle());
 		SmartDashboard.putNumber("LeftMotorSpeed", _leftMotor.get());
 		SmartDashboard.putNumber("RightMotorSpeed", _rightMotor.get());
 		SmartDashboard.putNumber("RunDistance", getDistance());

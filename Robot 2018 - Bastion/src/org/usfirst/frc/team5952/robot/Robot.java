@@ -18,7 +18,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team5952.robot.commands.*;
 import org.usfirst.frc.team5952.robot.commands.Drive.MiddleMode;
 import org.usfirst.frc.team5952.robot.commands.Drive.MoveCommand;
+import org.usfirst.frc.team5952.robot.commands.Drive.TurnCommand;
 import org.usfirst.frc.team5952.robot.subsystems.*;
+
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -52,7 +56,11 @@ public class Robot extends TimedRobot {
 	public static final Light light = null;
 //			new Light(RobotMap.light);
 	
-	public static final AnalogGyro gyro = new AnalogGyro(RobotMap.gyro);
+	//public static final AnalogGyro gyro = new AnalogGyro(RobotMap.gyro);
+	public static AHRS gyro = new AHRS(SPI.Port.kMXP);
+	
+	public static boolean isAutonomous = false;
+	
 	
 	public static OI m_oi;
 	
@@ -68,14 +76,15 @@ public class Robot extends TimedRobot {
 		m_oi = new OI();
 		
 		m_chooser.addDefault("Test", new MoveCommand(150));
-		m_chooser.addObject("AutonomneSide", new MoveCommand(305));
-		m_chooser.addObject("AutonomneMiddle", new MoveCommand(305));
+		m_chooser.addObject("AutonomneSide", new TurnCommand(90));
+		m_chooser.addObject("AutonomneMiddle", new MiddleMode());
 		
 //		CameraServer.getInstance().startAutomaticCapture();
-		SmartDashboard.putData("Auto mode", m_chooser);
+		SmartDashboard.putData("Chooser", m_chooser);
 		
 //		light.open();
 		driveTrain.reset();
+		gyro.reset();
 //		lift.reset();
 	}
 
@@ -86,7 +95,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		//m_chooser.addDefault("Shutdown", new RobotShutdown());
+		gyro.reset();
+		driveTrain.reset();
 	}
 
 	@Override
@@ -110,6 +120,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		m_autonomousCommand = m_chooser.getSelected();
+		
+		isAutonomous = true;
+		gyro.reset();
+		driveTrain.reset();
 		
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();

@@ -14,9 +14,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class MiddleMode extends CommandGroup {
 	public MiddleMode() {
-		addSequential(new TurnCommand(45));
-		addSequential(new MoveCommand(150));
-		addSequential(new TurnCommand(-45));
-		addSequential(new MoveCommand(150));
+		addSequential(new MoveCommand(20));
+		addSequential(new TurnCommand(180));
+		addSequential(new MoveCommand(20));
 	}
 }

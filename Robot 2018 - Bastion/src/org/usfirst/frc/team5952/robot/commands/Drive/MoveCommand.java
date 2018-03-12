@@ -16,6 +16,7 @@ import org.usfirst.frc.team5952.robot.Robot;
 public class MoveCommand extends Command {
 	private double _distance;
 	private double _targetDistance;
+	private double _currentAngle;
 	
 	public MoveCommand(double targetDistance) {
 		// Use requires() here to declare subsystem dependencies
@@ -27,12 +28,15 @@ public class MoveCommand extends Command {
 	@Override
 	protected void initialize() {
 		_distance = Robot.driveTrain.getDistance();
+		_currentAngle = Robot.gyro.getAngle();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.driveTrain.move(0.4, 0);
+		double direction = Robot.gyro.getAngle() - _currentAngle;
+		
+		Robot.driveTrain.move(0.4, 0.1 * direction);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -59,5 +63,6 @@ public class MoveCommand extends Command {
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
+		Robot.driveTrain.stop();
 	}
 }
