@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team5952.robot.commands.Drive.MiddleMode;
 import org.usfirst.frc.team5952.robot.commands.Drive.MoveCommand;
+import org.usfirst.frc.team5952.robot.commands.Drive.SideMode;
 import org.usfirst.frc.team5952.robot.commands.Drive.TurnCommand;
 import org.usfirst.frc.team5952.robot.subsystems.*;
 
@@ -59,9 +60,8 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		
 		m_chooser = new SendableChooser<Command>();
-		m_chooser.addDefault("Forward", new MoveCommand(150));
-		m_chooser.addObject("Turn", new TurnCommand(90));
-		m_chooser.addObject("Middle", new MiddleMode());
+		m_chooser.addDefault("SideMode", new SideMode());
+		m_chooser.addObject("MiddleMode", new MiddleMode());
 		SmartDashboard.putData("Chooser", m_chooser);
 		
 		CameraServer.getInstance().startAutomaticCapture();
