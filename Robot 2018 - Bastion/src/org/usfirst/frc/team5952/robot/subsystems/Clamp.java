@@ -35,15 +35,15 @@ public class Clamp extends Subsystem {
 	}
 	
 	public void enable(boolean on) {
-		if(Robot.lift.getDistance() >= RobotMap.clampHeightEnableHigh || 
-				Robot.lift.getDistance() <= RobotMap.clampHeightEnableLow ) {
-			
-		}
+		//if(Robot.lift.getDistance() >= RobotMap.clampHeightEnableHigh || 
+		//		Robot.lift.getDistance() <= RobotMap.clampHeightEnableLow ) {
+		//	
+		//}
 		_clampUpDown.set(on);
 	}
 	
 	public void log() {
-		SmartDashboard.putBoolean("ClampOpen", _clampOpenClose.get());
-		SmartDashboard.putBoolean("ClampUp", _clampUpDown.get());
+		//SmartDashboard.putBoolean("ClampOpen", _clampOpenClose.get());
+		//SmartDashboard.putBoolean("ClampUp", _clampUpDown.get());
 	}
 }

@@ -27,18 +27,18 @@ public class DriveTrain extends Subsystem {
 	private Encoder _leftEncoder, _rightEncoder;
 	
 	public DriveTrain() {
+		super();
+		
 		_leftMotor = new Talon(RobotMap.driveTrainMotorLeft);
 		_rightMotor = new Talon(RobotMap.driveTrainMotorRight);
 		
 		_leftEncoder = new Encoder(RobotMap.driveTrainLeftEncoder1, RobotMap.driveTrainLeftEncoder2);
-		_rightEncoder = new Encoder(RobotMap.driveTrainRightEncoder1, RobotMap.driveTrainRightEncoder2, true);
+		_rightEncoder = new Encoder(RobotMap.driveTrainRightEncoder1, RobotMap.driveTrainRightEncoder2);
 		
 		_leftEncoder.setDistancePerPulse(RobotMap.distancePerPulse);
 		_rightEncoder.setDistancePerPulse(RobotMap.distancePerPulse);
 		
-		if(!Robot.isAutonomous) {
-			drive = new DifferentialDrive(_leftMotor, _rightMotor);
-		}
+		drive = new DifferentialDrive(_leftMotor, _rightMotor);
 	}
 	
 	public void initDefaultCommand() {
@@ -61,7 +61,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public double getDistance() {
-		return _rightEncoder.getDistance();
+		return (_rightEncoder.getDistance() + _leftEncoder.getDistance())/2;
 	}
 	
 	public void reset() {
@@ -70,7 +70,6 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void log() {
-		SmartDashboard.putNumber("gyro", Robot.gyro.getAngle());
 		SmartDashboard.putNumber("LeftMotorSpeed", _leftMotor.get());
 		SmartDashboard.putNumber("RightMotorSpeed", _rightMotor.get());
 		SmartDashboard.putNumber("RunDistance", getDistance());

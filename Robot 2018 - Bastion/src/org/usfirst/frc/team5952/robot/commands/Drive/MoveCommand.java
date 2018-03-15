@@ -9,6 +9,7 @@ package org.usfirst.frc.team5952.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team5952.robot.Robot;
+import org.usfirst.frc.team5952.robot.RobotMap;
 
 /**
  * An example command.  You can replace me with your own command.
@@ -19,7 +20,6 @@ public class MoveCommand extends Command {
 	private double _currentAngle;
 	
 	public MoveCommand(double targetDistance) {
-		// Use requires() here to declare subsystem dependencies
 		requires(Robot.driveTrain);
 		_targetDistance = targetDistance;
 	}
@@ -36,7 +36,7 @@ public class MoveCommand extends Command {
 	protected void execute() {
 		double direction = Robot.gyro.getAngle() - _currentAngle;
 		
-		Robot.driveTrain.move(0.4, 0.1 * direction);
+		Robot.driveTrain.move(RobotMap.movingSpeed, 0);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

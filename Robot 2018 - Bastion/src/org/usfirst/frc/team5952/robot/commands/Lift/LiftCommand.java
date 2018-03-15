@@ -24,7 +24,6 @@ public class LiftCommand extends Command {
 	public LiftCommand(double speed) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.lift);
-		requires(Robot.cableWinch);
 		
 		_speed = speed;
 	}
