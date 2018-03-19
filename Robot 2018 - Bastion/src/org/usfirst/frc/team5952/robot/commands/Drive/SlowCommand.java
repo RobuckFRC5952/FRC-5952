@@ -8,51 +8,47 @@
 package org.usfirst.frc.team5952.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team5952.robot.Robot;
 import org.usfirst.frc.team5952.robot.RobotMap;
 
 /**
  * An example command.  You can replace me with your own command.
  */
-public class TurnCommand extends Command {
-	private double _targetAngle;
-	private double _direction;
-	private double _angle;
-	
-	public TurnCommand(double angle) {
-		// Use requires() here to declare subsystem dependencies
-		requires(Robot.driveTrain);	
-		
-		_angle = angle;
-		_direction = Math.signum(_angle);
+public class SlowCommand extends Command {
+	public SlowCommand() {
+
 	}
 	
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		_targetAngle = Robot.driveTrain.getHeading() + _angle;
+		Robot.speedModifier = SmartDashboard.getNumber("SpeedModifier", 0.25);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.driveTrain.drive(RobotMap.movingSpeed, _direction * 0.5);
+
 	}
 
+	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return _direction > 0 ? 
-				Robot.driveTrain.getHeading() >= _targetAngle : 
-				Robot.driveTrain.getHeading() <= _targetAngle; 
+		return false;
 	}
 
+	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.driveTrain.stop();
+		Robot.speedModifier = 1;
 	}
 
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		end();
+		Robot.speedModifier = 1;
 	}
 }

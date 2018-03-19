@@ -10,7 +10,14 @@ package org.usfirst.frc.team5952.robot.subsystems;
 import org.usfirst.frc.team5952.robot.Robot;
 import org.usfirst.frc.team5952.robot.RobotMap;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
@@ -25,6 +32,7 @@ public class DriveTrain extends Subsystem {
 	private DifferentialDrive drive;
 	private Talon _leftMotor, _rightMotor;
 	private Encoder _leftEncoder, _rightEncoder;
+	private AHRS _gyro = new AHRS(SPI.Port.kMXP);
 	
 	public DriveTrain() {
 		super();
@@ -32,7 +40,7 @@ public class DriveTrain extends Subsystem {
 		_leftMotor = new Talon(RobotMap.driveTrainMotorLeft);
 		_rightMotor = new Talon(RobotMap.driveTrainMotorRight);
 		
-		_leftEncoder = new Encoder(RobotMap.driveTrainLeftEncoder1, RobotMap.driveTrainLeftEncoder2);
+		_leftEncoder = new Encoder(RobotMap.driveTrainLeftEncoder1, RobotMap.driveTrainLeftEncoder2, true);
 		_rightEncoder = new Encoder(RobotMap.driveTrainRightEncoder1, RobotMap.driveTrainRightEncoder2);
 		
 		_leftEncoder.setDistancePerPulse(RobotMap.distancePerPulse);
@@ -45,15 +53,12 @@ public class DriveTrain extends Subsystem {
 		
 	}
 	
-	public void move(double speed, double angle) {
-		drive.arcadeDrive(speed, angle);
-	}
-	
-	public void moveAuto(double speed, double angle) {
-		double direction = Math.signum(angle);
+	public void drive(double speed, double angle) {
+		if(Robot.isAutonomous) {
+			angle = angle + SmartDashboard.getNumber("Deviation", -0.233);
+		}
 		
-		_leftMotor.set(speed * direction);
-		_rightMotor.set(speed * direction);
+		drive.arcadeDrive(speed * Robot.speedModifier, angle);
 	}
 	
 	public void stop() {
@@ -64,15 +69,31 @@ public class DriveTrain extends Subsystem {
 		return (_rightEncoder.getDistance() + _leftEncoder.getDistance())/2;
 	}
 	
+	public double getLeftDistance() {
+		return _leftEncoder.getDistance();
+	}
+	
+	public double getRightDistance() {
+		return _rightEncoder.getDistance();
+	}
+	
+	public double getHeading() {
+		return _gyro.getAngle();
+	}
+	
 	public void reset() {
 		_leftEncoder.reset();
 		_rightEncoder.reset();
+		_gyro.reset();
 	}
 	
 	public void log() {
+		SmartDashboard.putNumber("Gyro", _gyro.getAngle());
 		SmartDashboard.putNumber("LeftMotorSpeed", _leftMotor.get());
 		SmartDashboard.putNumber("RightMotorSpeed", _rightMotor.get());
 		SmartDashboard.putNumber("RunDistance", getDistance());
+		SmartDashboard.putNumber("RunLeftDistance", _leftEncoder.getDistance());
+		SmartDashboard.putNumber("RunRightDistance", _rightEncoder.getDistance());
 		SmartDashboard.putNumber("LeftSpeed enc", _leftEncoder.getRate());
 		SmartDashboard.putNumber("RightSpeed enc", _rightEncoder.getRate());
 	}

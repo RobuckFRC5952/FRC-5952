@@ -7,62 +7,52 @@
 
 package org.usfirst.frc.team5952.robot.commands.Drive;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc.team5952.robot.Robot;
 import org.usfirst.frc.team5952.robot.RobotMap;
 
 /**
  * An example command.  You can replace me with your own command.
  */
-public class MoveCommand extends Command {
-	private double _distance;
-	private double _targetDistance;
-	private double _currentAngle;
+public class LiftCommand extends Command {
+	private long _time, _time2;
+	private Timer t = new Timer();
 	
-	public MoveCommand(double targetDistance) {
-		requires(Robot.driveTrain);
-		_targetDistance = targetDistance;
+	public LiftCommand() {
+
 	}
 	
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		_distance = Robot.driveTrain.getDistance();
-		_currentAngle = Robot.gyro.getAngle();
+		t.start();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double direction = Robot.gyro.getAngle() - _currentAngle;
-		
-		Robot.driveTrain.move(RobotMap.movingSpeed, 0);
+		Robot.lift.move(0.4);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		boolean _continue = true;
-		
-		if(Math.signum(_targetDistance) > 0) {
-			_continue = Robot.driveTrain.getDistance() >= (_distance + _targetDistance);
-		} else {
-			_continue = Robot.driveTrain.getDistance() <= (_distance + _targetDistance);
-		}
-		
-		return _continue;
+ 		return t.get() >= 3;
 	}
 
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.driveTrain.stop();
+		t.stop();
+		Robot.lift.stop();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Robot.driveTrain.stop();
 	}
 }

@@ -31,6 +31,6 @@ public class RobotMap {
 	public static double clampHeightEnableHigh = 50;
 	public static double clampHeightEnableLow = 10;
 
-	public static double movingSpeed = 0.5;
-	public static double turningSpeed = 0.1;
+	public static double movingSpeed = 0.6;
+	public static double turningSpeed = 0.2;
 }

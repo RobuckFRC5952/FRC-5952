@@ -39,20 +39,14 @@ public class LiftCommand extends Command {
 		_targetDistance = _currentDistance + (distance * Math.signum(speed));
 	}
 	
-	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
 		Robot.light.reverse();
 	}
 
-	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double speed = _currentSpeed + _split;
-		
 		Robot.lift.move(_speed);
-		//Robot.cableWinch.move(speed * RobotMap.cableWinchSpeedAjustement);
-		_currentSpeed += _split;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -65,16 +59,11 @@ public class LiftCommand extends Command {
 		//		(Robot.lift.getDistance() >= _targetDistance && _speed < 0));
 	}
 
-	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.light.open();
 	}
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Robot.light.open();
 	}
 }

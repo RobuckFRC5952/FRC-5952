@@ -14,45 +14,52 @@ import org.usfirst.frc.team5952.robot.RobotMap;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class TurnCommand extends Command {
-	private double _targetAngle;
-	private double _direction;
-	private double _angle;
+public class DriveCommand extends Command {
+	private double _distance;
+	private double _targetDistance;
+	private double _currentAngle;
 	
-	public TurnCommand(double angle) {
-		// Use requires() here to declare subsystem dependencies
-		requires(Robot.driveTrain);	
-		
-		_angle = angle;
-		_direction = Math.signum(_angle);
+	public DriveCommand(double targetDistance) {
+		requires(Robot.driveTrain);
+		_targetDistance = targetDistance;
 	}
 	
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		_targetAngle = Robot.driveTrain.getHeading() + _angle;
+		_distance = Robot.driveTrain.getDistance();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
-	protected void execute() {
-		Robot.driveTrain.drive(RobotMap.movingSpeed, _direction * 0.5);
+	protected void execute() {		
+		Robot.driveTrain.drive(RobotMap.movingSpeed, 0);
 	}
 
+	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return _direction > 0 ? 
-				Robot.driveTrain.getHeading() >= _targetAngle : 
-				Robot.driveTrain.getHeading() <= _targetAngle; 
+		boolean _continue = true;
+		
+		if(Math.signum(_targetDistance) > 0) {
+			_continue = Robot.driveTrain.getDistance() >= (_distance + _targetDistance);
+		} else {
+			_continue = Robot.driveTrain.getDistance() <= (_distance + _targetDistance);
+		}
+		
+		return _continue;
 	}
 
+	// Called once after isFinished returns true
 	@Override
 	protected void end() {
 		Robot.driveTrain.stop();
 	}
 
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		end();
+		Robot.driveTrain.stop();
 	}
 }

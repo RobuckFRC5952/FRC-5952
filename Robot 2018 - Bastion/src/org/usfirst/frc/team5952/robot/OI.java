@@ -7,11 +7,9 @@
 
 package org.usfirst.frc.team5952.robot;
 
-import org.usfirst.frc.team5952.robot.commands.RobotShutdown;
-import org.usfirst.frc.team5952.robot.commands.RobotStart;
 import org.usfirst.frc.team5952.robot.commands.Clamp.ClampCommand;
 import org.usfirst.frc.team5952.robot.commands.Clamp.ClampEnableCommand;
-import org.usfirst.frc.team5952.robot.commands.Drive.MoveCommand;
+import org.usfirst.frc.team5952.robot.commands.Drive.SlowCommand;
 import org.usfirst.frc.team5952.robot.commands.Lift.LiftCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -49,10 +47,18 @@ public class OI {
 		b6.toggleWhenPressed(new ClampEnableCommand(true));
 		b7.toggleWhenPressed(new ClampEnableCommand(false));
 		
-		b4.whileHeld(new LiftCommand(0.2));
+		b4.whileHeld(new LiftCommand(0.1));
 		b5.whileHeld(new LiftCommand(-1));
-		//SmartDashboard.putData(new RobotStart());
-		//SmartDashboard.putData(new RobotShutdown());
+		
+		b8.whileHeld(new SlowCommand());
+		
+		SmartDashboard.setDefaultNumber("Move1", 150);
+		SmartDashboard.setDefaultNumber("Turn1", 90);
+		SmartDashboard.setDefaultNumber("Move2", 40);
+		SmartDashboard.setDefaultNumber("Turn2", -90);
+		SmartDashboard.setDefaultNumber("Move3", 120);
+		
+		SmartDashboard.setDefaultNumber("Deviation", -0.233);
 		
 		SmartDashboard.putData("Open", new ClampCommand(true));
 		SmartDashboard.putData("Close", new ClampCommand(false));

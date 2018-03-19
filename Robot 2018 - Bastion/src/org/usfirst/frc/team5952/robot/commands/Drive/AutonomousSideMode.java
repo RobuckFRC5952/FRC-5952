@@ -13,12 +13,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class MiddleMode extends CommandGroup {
-	public MiddleMode() {
-		addSequential(new MoveCommand(SmartDashboard.getNumber("Move1", 10)));
-		addSequential(new TurnCommand(SmartDashboard.getNumber("Turn1", 90)));
-		addSequential(new MoveCommand(SmartDashboard.getNumber("Move1", 40)));
-		addSequential(new TurnCommand(SmartDashboard.getNumber("Turn1", -90)));
-		addSequential(new MoveCommand(SmartDashboard.getNumber("Move1", 120)));
+public class AutonomousSideMode extends CommandGroup {
+	public AutonomousSideMode() {
+		addSequential(new DriveCommand(150));
 	}
 }

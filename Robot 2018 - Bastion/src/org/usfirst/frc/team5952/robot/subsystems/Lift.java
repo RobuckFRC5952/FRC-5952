@@ -8,6 +8,9 @@
 package org.usfirst.frc.team5952.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team5952.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
@@ -18,44 +21,20 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * An example subsystem.  You can replace me with your own Subsystem.
  */
 public class Lift extends Subsystem {
-	//private DigitalInput _topSwitch;
-	private DigitalInput _bottomSwitch;
 	private Talon _motor;
 	public Encoder _encoder;
 	
-	public Lift(int motorPort, 
-			int encoderPort1, 
-			int encoderPort2, 
-			double distancePerPulse, 
-			int topLimitSwitchChannel, 
-			int bottomlimitSwitchChannel) {
+	public Lift() {
+		_motor = new Talon(RobotMap.liftMotor);
+		_encoder = new Encoder(RobotMap.liftEncoder1, RobotMap.liftEncoder2);
 		
-		_motor = new Talon(motorPort);
-		_encoder = new Encoder(encoderPort1, encoderPort2);
-		
-		_encoder.setDistancePerPulse(distancePerPulse);
-		
-		//_topSwitch =  new DigitalInput(topLimitSwitchChannel);
-		_bottomSwitch =  new DigitalInput(bottomlimitSwitchChannel);
+		_encoder.setDistancePerPulse(RobotMap.distancePerPulse);
 	}
 	
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
 	}
 	
 	public void move(double speed) {
-		if(/*_topSwitch.get() || */_bottomSwitch.get())
-		{
-			//stop();
-			//return;
-		}
-		
-		if(getDistance() >= 5) {
-			//stop();
-			//return;
-		}
-
 		_motor.set(speed);
 	}
 	
@@ -74,7 +53,5 @@ public class Lift extends Subsystem {
     public void log() {
 		SmartDashboard.putNumber("Lift Distance", getDistance());
 		SmartDashboard.putNumber("Lift Speed", _encoder.getRate());
-    	//SmartDashboard.putBoolean("Lift Max", _topSwitch.get());
-    	SmartDashboard.putBoolean("Lift Min", _bottomSwitch.get());
     }
 }
