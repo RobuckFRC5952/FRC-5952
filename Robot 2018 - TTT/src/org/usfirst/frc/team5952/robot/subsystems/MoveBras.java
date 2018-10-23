@@ -28,7 +28,7 @@ public class MoveBras extends Subsystem {
 	/**
 	 * Monter 		:  1
 	 * Descendre 	: -1
-	 * Arrêter		:  0
+	 * Arreter		:  0
 	 * @param direction
 	 */
 	public void setDirection(int direction) {
